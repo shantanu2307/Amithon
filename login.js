@@ -1,6 +1,13 @@
 const username = document.getElementById('username');
 const password = document.getElementById('password');
 
+const submit = document.getElementById('submit');
+
+submit.addEventListener("click", function(event) {
+    event.preventDefault();
+    submitLogin();
+});
+
 function randomString(length = 8) {
     var result = '';
     var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -34,6 +41,16 @@ function decrypt(cipherText, secret) {
 function submitLogin() {
     const challenge = CryptoJS.SHA256(randomString()).toString();
     const secret = CryptoJS.SHA256(password.value).toString();
+
+    if (!username.value || !password.value) {
+        Toastify({
+            text: "Please check your inputs",
+            className: "toast",
+            style: { background: "linear-gradient(to right, #E80101, #FF4801)" }
+        }).showToast();
+
+        return;
+    }
 
     const requestOptions = {
         method: 'POST',

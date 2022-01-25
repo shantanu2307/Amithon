@@ -7,19 +7,34 @@
     <title>ZKP Authentication</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js" integrity="sha512-E8QSvWZ0eCLGk4km3hxSsNmGWbLtSCSUcewDQPQWZF6pEU8GlT8a5fF32wOl1i8ftdMhssTrF/OhyGWwonTcXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 <body>
-    <h1>ZKP Authentication</h1>
-    <div>
-        <div id='userDiv'>
-            <div style="width: 10em; height: 10em; border-radius: 5em; background-color: #2D2A2D44;" id='userIcon'></div>
-            <h2 id='username'></h2>
-            <p id='name'></p>
-            <p id='phone'></p>
-            <p id='email'></p>
-        </div>
-        <button id="login" onclick="submitLogout()">Logout</button>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
     </div>
+    <form>
+        <h2 id='username'></h2>
+
+        <div id='userIcon'></div>
+
+        <label for="name"><small>Name</small></label>
+        <p id='name'></p>
+
+        <label for="phone"><small>Phone</small></label>
+        <p id='phone'></p>
+
+        <label for="email"><small>Email</small></label>
+        <p id='email'></p>
+
+        <button id="submit">Log Out</button>
+    </form>
     <script src="./user.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
 </html>

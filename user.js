@@ -6,6 +6,13 @@ const email = document.getElementById('email');
 const phone = document.getElementById('phone');
 const userIcon = document.getElementById('userIcon');
 
+const submit = document.getElementById('submit');
+
+submit.addEventListener("click", function(event) {
+    event.preventDefault();
+    submitLogout();
+});
+
 username.innerHTML = user.username;
 name.innerHTML = user.name;
 email.innerHTML = user.email;
