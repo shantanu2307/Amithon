@@ -1,10 +1,7 @@
 const username = document.getElementById('username');
 const password = document.getElementById('password');
 
-username.value = 'kshitijvsingh';
-password.value = 'ANGRY.aztecs@123';
-
-function randomString(length = 32) {
+function randomString(length = 8) {
     var result = '';
     var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var charactersLength = characters.length;
@@ -22,14 +19,19 @@ function encrypt(plainText, secret) {
 }
 
 function decrypt(cipherText, secret) {
-   var reb64 = CryptoJS.enc.Hex.parse(cipherText);
-   var bytes = reb64.toString(CryptoJS.enc.Base64);
-   var decrypt = CryptoJS.AES.decrypt(bytes, secret);
-   var plain = decrypt.toString(CryptoJS.enc.Utf8);
-   return plain;
+    try {
+        var reb64 = CryptoJS.enc.Hex.parse(cipherText);
+        var bytes = reb64.toString(CryptoJS.enc.Base64);
+        var decrypt = CryptoJS.AES.decrypt(bytes, secret);
+        var plain = decrypt.toString(CryptoJS.enc.Utf8);
+        return plain;
+    }
+    catch (error) {
+        return null;
+    }
 }
 
-function submit() {
+function submitLogin() {
     const challenge = CryptoJS.SHA256(randomString()).toString();
     const secret = CryptoJS.SHA256(password.value).toString();
 
@@ -42,10 +44,14 @@ function submit() {
     axios(requestOptions).then((response) => {
         const encryptedChallenge = response.data.challenge;
         const decryptedString = decrypt(encryptedChallenge, secret);
+        if (!decryptedString) {
+            console.log('Incorrect Password');
+            return;
+        }
 
         const replyChallenge = decryptedString.substring(0, 64);
         if (replyChallenge !== challenge) {
-            console.log('Challenge mismatch');
+            console.log('Challenge mismatch, server not verified');
             return;
         }
 
@@ -59,8 +65,6 @@ function submit() {
             data: { username: username.value, proof: proof },
         }
 
-        axios(requestOptions).then((response) => { console.log(response.data); }).catch((error) => { console.log(error); });
+        axios(requestOptions).then((response) => { console.log(response.data); window.localStorage.setItem('user', JSON.stringify(response.data.user)); window.location.href = '/user.html'; }).catch((error) => { console.log(error); });
     }).catch((error) => { console.log(error); });
 }
-
-
