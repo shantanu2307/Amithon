@@ -63,12 +63,26 @@ function submitLogin() {
         const decryptedString = decrypt(encryptedChallenge, secret);
         if (!decryptedString) {
             console.log('Incorrect Password');
+
+            Toastify({
+                text: "Incorrect Password. Please try again.",
+                className: "toast",
+                style: { background: "linear-gradient(to right, #E80101, #FF4801)" }
+            }).showToast();
+    
             return;
         }
 
         const replyChallenge = decryptedString.substring(0, 64);
         if (replyChallenge !== challenge) {
             console.log('Challenge mismatch, server not verified');
+
+            Toastify({
+                text: "Server could not be verified.",
+                className: "toast",
+                style: { background: "linear-gradient(to right, #E80101, #FF4801)" }
+            }).showToast();
+
             return;
         }
 
