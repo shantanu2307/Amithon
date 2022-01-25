@@ -72,7 +72,7 @@ app.post('/login-verify', async (req, res) => {
             return;
         }
 
-        res.status(200).send({ message: 'Successfully Logged In', user: userDoc.data() });
+        res.status(200).send({ message: 'Successfully Logged In', user: userDoc.data().userData });
     }
     catch (error) {
         console.log(error);
